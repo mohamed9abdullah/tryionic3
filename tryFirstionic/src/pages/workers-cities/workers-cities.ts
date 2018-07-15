@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as firebase from 'Firebase';
+import * as firebase from 'firebase/app';
 
 /**
  * Generated class for the WorkersCitiesPage page.
@@ -21,7 +21,7 @@ export class WorkersCitiesPage {
     constructor(public navCtrl: NavController, public navParams: NavParams) {
   
       this.CityITem=navParams.get("CityITem");
-      console.log("this is CityITem:"+this.CityITem);
+      //console.log("this is CityITem:"+this.CityITem);
      
       firebase.database().ref("/users").on('value',response=>{
         this.WorkersList=this.DataToArray3(response);
@@ -31,7 +31,7 @@ export class WorkersCitiesPage {
     }
   
     ionViewDidLoad() {
-      console.log('ionViewDidLoad WorkersPage');
+      //console.log('ionViewDidLoad WorkersPage');
     }
   
     itemTapped(event,worker){

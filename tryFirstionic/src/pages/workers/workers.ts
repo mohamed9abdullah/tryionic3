@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as firebase from 'Firebase';
+import * as firebase from 'firebase/app';
 /**
  * Generated class for the WorkersPage page.
  *
@@ -19,7 +19,7 @@ WorkersList:any=[];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
     this.HerfaItem=navParams.get("HerfaITem");
-    console.log("this is herfa:"+this.HerfaItem);
+    //console.log("this is herfa:"+this.HerfaItem);
    
     firebase.database().ref("/users").on('value',response=>{
       this.WorkersList=this.DataToArray3(response);
@@ -29,7 +29,7 @@ WorkersList:any=[];
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WorkersPage');
+    //console.log('ionViewDidLoad WorkersPage');
   }
 
   itemTapped(event,worker){

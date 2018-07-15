@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
-import * as firebase from 'Firebase';
+import * as firebase from 'firebase';
 import { Storage } from '@ionic/storage';
 
 /**
@@ -16,7 +16,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'registration.html',
 })
 export class RegistrationPage {
-  FullName:string="";
+  FullName:string="";validData=true;
   Password:string="";
   ConfirmPassword:string="";
   ImgURL:string="";
@@ -29,18 +29,18 @@ export class RegistrationPage {
     encodingType: this.MyCamera.EncodingType.JPEG,
     mediaType: this.MyCamera.MediaType.PICTURE}
 */
-    MyUser=[];
+    MyUser={};
     constructor(public navCtrl: NavController,public alertCtrl:AlertController,public storage:Storage) {
           
-      debugger;
-      this.MyUser=[];
-      this.storage.get('Customer_Heraf').then((value)=>{
-
-        this.MyUser.push(JSON.parse(value));
-       //console.log("Customer_Heraf:"+this.MyUser);
-       if(this.MyUser.length>0){
-         navCtrl.setRoot("HomePage");
-       }
+      this.MyUser={};
+      this.storage.get('MyUserHeraf').then((value)=>{
+        if(value){
+              this.MyUser=JSON.parse(value);
+            //console.log("Customer_Heraf:"+this.MyUser);
+            if(this.MyUser["FullName"]!==""){
+              navCtrl.setRoot("HomePage");
+            }
+      }
       
       }).catch(err=>{
   
@@ -52,17 +52,18 @@ export class RegistrationPage {
  onRegisterClick(){
  
   if(this.FullName.trim()!=="" &&this.Password.trim()!=="" && this.Phone.trim()!==""){
-
+    this.validData=true;                
+    
     if(this.ConfirmPassword==this.Password){
                                
-      this.MyUser.push({
+      this.MyUser={
         FullName:this.FullName,
         Password:this.Password,
         ImgURL:this.ImgURL,
         Phone:this.Phone,
         DateOfBirth:this.DateOfBirth,
  
-        });
+        };
 
         firebase.database().ref("customers").push({
           FullName:this.FullName,
@@ -77,8 +78,7 @@ export class RegistrationPage {
 
          console.log("Data Saved To DB");
 
-          debugger;
-          this.storage.set("Customer_Herfawy",JSON.stringify(this.MyUser)).then(resolve=>{
+          this.storage.set("MyUserHeraf",JSON.stringify(this.MyUser)).then(resolve=>{
 
             console.log("Data Saved To LocalStorage");
 
@@ -104,9 +104,8 @@ export class RegistrationPage {
 
      }
 
-
   }else{
-                           
+    this.validData=false;                
     let alert=this.alertCtrl.create({
                                
       title:"Please Fill All Required Fields ",

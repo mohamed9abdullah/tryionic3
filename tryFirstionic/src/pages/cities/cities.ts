@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as firebase from 'Firebase';
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the CitiesPage page.
@@ -49,7 +49,7 @@ CitiesList:any=[];
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CitiesPage');
+    //console.log('ionViewDidLoad CitiesPage');
   }
 
 }

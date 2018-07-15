@@ -19,7 +19,7 @@ export class HerafPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HerafPage');
+   // console.log('ionViewDidLoad HerafPage');
   }
 
 }

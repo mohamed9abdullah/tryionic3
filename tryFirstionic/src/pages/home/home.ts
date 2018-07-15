@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import * as firebase from 'Firebase';
+import * as firebase from 'firebase/app';
 
 /**
  * Generated class for the HomePage page.
@@ -49,7 +49,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+    //console.log('ionViewDidLoad HomePage');
   }
   DataToArray2(AllData) {
     let returnArr = [];

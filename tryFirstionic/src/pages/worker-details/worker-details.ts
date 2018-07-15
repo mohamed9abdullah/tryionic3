@@ -18,11 +18,11 @@ WorkerItem={};
   constructor(public navCtrl: NavController, public navParams: NavParams) {
    // debugger;
     this.WorkerItem=navParams.get("WorkerItem");
-    console.log("this is WorkerItem:"+this.WorkerItem);    
+    //console.log("this is WorkerItem:"+this.WorkerItem);    
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WorkerDetailsPage');
+    //console.log('ionViewDidLoad WorkerDetailsPage');
   }
 
 }

@@ -1,5 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
+import * as firebase from 'firebase';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 /**
@@ -15,41 +16,68 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
   templateUrl: 'my-account.html',
 })
 export class MyAccountPage {
-  MyUser=[];UserProfile={};ConfirmPassword="";
+  MyUser={};UserProfile={};ConfirmPassword="";validData=true;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,public alertCtrl:AlertController) {
-      this.MyUser=[];
-      this.storage.get('Customer_Heraf').then((value)=>{
-        debugger;
+           
+    this.MyUser={};
+    this.storage.get('MyUserHeraf').then((value)=>{
+      if(value){
+            this.MyUser=JSON.parse(value);
+          }else{
+    
+      navCtrl.setRoot("LoginPage");
+         
 
-        this.MyUser.push(JSON.parse(value));
-      this.UserProfile=JSON.parse(value);
-        console.log("Customer_Heraf:"+this.MyUser);
-     
-      
-      }).catch(err=>{
+    }
+    
+    }).catch(err=>{
 
-        console.log(err);
-      });
+      console.log("MyAccount Page Error :"+err);
+    });
 
       
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MyAccountPage');
+   // console.log('ionViewDidLoad MyAccountPage');
   }
 
   onEditClick(){
 
-      if(this.MyUser[0].FullName.trim()!=="" &&this.MyUser[0].Password.trim()!=="" && this.MyUser[0].Phone.trim()!==""){
-          if(this.MyUser[0].Password==this.ConfirmPassword){
-          console.log("UserData is "+this.MyUser)
-          }else{
+      if(this.MyUser["FullName"].trim()!=="" &&this.MyUser["Password"].trim()!=="" && this.MyUser["Phone"].trim()!==""){
+          this.validData=true;                     
+
+          if(this.MyUser["Password"]==this.ConfirmPassword){
+                      
+                firebase.database().ref("/customers/"+this.MyUser["key"]).update(this.MyUser)
+                .then(resolve=>{
+                        this.storage.set("MyUserHeraf",JSON.stringify(this.MyUser)).then(resolve=>{
+                                console.log("Data Saved To LocalStorage");
+
+                                let alert=this.alertCtrl.create({
+                                            
+                                  title:"Congratulations",
+                                  buttons:["OK"],
+                                  subTitle:"",
+                                  message:" Your Information  Saved Successfully"
+                                });
+                                alert.present();
+
+
+                              });
+                    
+                      },err=>console.log("Error from Updating Object:"+err)
+                  )
+                .catch(error=>{   console.log("Error from updating:"+error);});
+                
+
+         }else{
                                     
             let alert=this.alertCtrl.create({
                                       
               title:"Password and Confirm Password Doesn't match , please try again ",
               buttons:["OK"],
-              subTitle:`${this.MyUser[0].FullName} ,Please try again `,
+              subTitle:`${this.MyUser["FullName"]} ,Please try again `,
               message:""
             });
             alert.present();
@@ -58,12 +86,13 @@ export class MyAccountPage {
 
 
     }else{
-                           
+
+      this.validData=false;                     
       let alert=this.alertCtrl.create({
                                  
         title:"Please Fill All Required Fields ",
         buttons:["OK"],
-        subTitle:`${this.MyUser[0].FullName} ,Please try again `,
+        subTitle:`${this.MyUser["FullName"]} ,Please try again `,
         message:""
       });
       alert.present();
@@ -71,4 +100,26 @@ export class MyAccountPage {
      }
 
   }
+
+
+  logout(){
+
+
+    //this.storage.clear();
+    this.navCtrl.setRoot("LoginPage");
+  }
+
+
+  DataToArray2(AllData) {
+    let returnArr = [];
+
+    AllData.forEach(childData => {
+        let item = childData.val();
+        item.key = childData.key;
+        returnArr.push(item);
+    });
+
+    return returnArr;
+  }
+
 }

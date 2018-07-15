@@ -13,25 +13,25 @@
     <ion-list>
       <form #myForm="ngForm"   (ngSubmit)="onRegisterClick()">
         <ion-item>
-            <ion-label><ion-icon ios="ios-contact" md="md-contact"></ion-icon></ion-label>
+            <ion-label><ion-icon ios="ios-contact" md="md-contact"></ion-icon> Name - الاسم </ion-label>
             <ion-input type="text"
             [ngModelOptions]="{standalone: true}" #name="ngModel" required [(ngModel)]="FullName"></ion-input>
         </ion-item>
     
-        <span *ngIf="name.errors">
+        <span *ngIf="name.errors && !validData">
             <span [hidden]="!name.errors.required">
                 <ion-label style="color: red; margin-left: 16px;"> Name is required </ion-label>
             </span>
         </span>
 
         <ion-item>
-            <ion-label><ion-icon ios="ios-contact" md="md-lock"></ion-icon>Password - الرقم السرى</ion-label>
+            <ion-label><ion-icon ios="ios-contact" md="md-lock"></ion-icon> Password - الرقم السرى</ion-label>
             <ion-input type="password"
               [ngModelOptions]="{standalone: true}"
               required [(ngModel)]="Password" #password="ngModel"></ion-input>
         </ion-item>
 
-        <span *ngIf="password.errors">
+        <span *ngIf="password.errors  && !validData">
             <span [hidden]="!password.errors.required">
                 <ion-label style="color: red; margin-left: 16px;"> Password is required </ion-label>
             </span>
@@ -39,7 +39,7 @@
 
         <ion-item>
           <ion-label>
-            <ion-icon ios="ios-contact"md="md-lock"></ion-icon>Confirm Password - تأكيد الرقم السرى</ion-label>
+            <ion-icon ios="ios-contact"md="md-lock"></ion-icon> Confirm Password - تأكيد الرقم السرى</ion-label>
           <ion-input type="password"  #confirmpassword="ngModel"
           [ngModelOptions]="{standalone: true}"
           [(ngModel)]="ConfirmPassword"></ion-input>
@@ -48,13 +48,13 @@
       
 
         <ion-item>
-          <ion-label><ion-icon ios="ios-call" md="md-call"></ion-icon>Phone - رقم التليفون</ion-label>
+          <ion-label><ion-icon ios="ios-call" md="md-call"></ion-icon> Phone - رقم التليفون</ion-label>
           <ion-input type="number" 
           [ngModelOptions]="{standalone: true}"
           required #phone="ngModel" [(ngModel)]="Phone"></ion-input>
         </ion-item>
     
-        <span *ngIf="phone.errors">
+        <span *ngIf="phone.errors  && !validData ">
             <span [hidden]="!phone.errors.required">
                 <ion-label style="color: red; margin-left: 16px;"> Phone is required </ion-label>
             </span>
@@ -79,7 +79,7 @@
           <ion-item>
             <button
               ion-button block color="secondary"
-              [disabled]="!myForm.form.valid" type="submit"  >Register</button>
+              [disabled]="!myForm.form.valid" type="submit">Register</button>
           </ion-item>
     
       </form>
