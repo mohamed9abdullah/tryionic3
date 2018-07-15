@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Cities - المدن</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+     
+  <ion-list>
+    <ion-item-sliding *ngFor="let City of CitiesList" (click)="itemTapped($event, City)">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{City?.ImgURL}}">
+        </ion-avatar>
+        <h2>{{City?.FullName}}</h2>
+      </ion-item>
+      <ion-item-options side="right">
+      
+        <h2>{{City?.FullName}}</h2>
+      </ion-item-options>
+    
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

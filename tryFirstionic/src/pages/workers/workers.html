@@ -1,0 +1,47 @@
+<!--
+  Generated template for the WorkersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Workers in {{HerfaItem.FullName}} -
+               العمال فى حرفة     
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list *ngIf="WorkersList.length>0">
+  
+    <ion-item-sliding *ngFor="let worker of WorkersList" (click)="itemTapped($event, worker)">
+
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{worker?.ImgURL}}">
+        </ion-avatar>
+        <h2>{{worker?.FullName}}</h2>
+      </ion-item>
+      <ion-item-options side="right">
+      
+        <h2>{{worker?.FullName}}</h2>
+      </ion-item-options>
+    
+    </ion-item-sliding>
+
+    
+  </ion-list>
+
+<ion-list style="text-align: center" *ngIf="WorkersList.length==0" >
+  <div >
+     <b>There is no Workers Here in this Herfa </b>
+  </div>
+</ion-list>
+
+
+</ion-content>
