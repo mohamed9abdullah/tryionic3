@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as firebase from 'firebase/app';
+import * as firebase from 'Firebase';
 
 /**
  * Generated class for the WorkersCitiesPage page.

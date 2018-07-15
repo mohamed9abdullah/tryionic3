@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import * as firebase from 'firebase';
+import * as firebase from 'Firebase';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 /**
@@ -48,9 +48,9 @@ export class MyAccountPage {
           this.validData=true;                     
 
           if(this.MyUser["Password"]==this.ConfirmPassword){
-                      
                 firebase.database().ref("/customers/"+this.MyUser["key"]).update(this.MyUser)
                 .then(resolve=>{
+
                         this.storage.set("MyUserHeraf",JSON.stringify(this.MyUser)).then(resolve=>{
                                 console.log("Data Saved To LocalStorage");
 

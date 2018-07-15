@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
-import * as firebase from 'firebase';
+import * as firebase from 'Firebase';
 import { Storage } from '@ionic/storage';
 
 /**
@@ -62,30 +62,29 @@ export class RegistrationPage {
         ImgURL:this.ImgURL,
         Phone:this.Phone,
         DateOfBirth:this.DateOfBirth,
- 
+        key:""
         };
 
-        firebase.database().ref("customers").push({
+        let UserKey=firebase.database().ref("customers").push({
           FullName:this.FullName,
           Password:this.Password,
           ImgURL:this.ImgURL,
           Phone:this.Phone,
           DateOfBirth:this.DateOfBirth,
    
-         }).then(resolve=>{
+         }).key;
+        
+         this.MyUser["key"]=UserKey;
 
-
-
-         console.log("Data Saved To DB");
+          console.log("Data Saved To DB");
 
           this.storage.set("MyUserHeraf",JSON.stringify(this.MyUser)).then(resolve=>{
-
             console.log("Data Saved To LocalStorage");
 
             this.navCtrl.setRoot("HomePage");
           });
 
-         });
+        
 
        
 

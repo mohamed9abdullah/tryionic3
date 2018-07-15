@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
-import * as firebase from 'firebase/app';
+import * as firebase from 'Firebase';
 import { Storage } from '@ionic/storage';
 /**
  * Generated class for the LoginPage page.
@@ -49,7 +49,6 @@ export class LoginPage {
 
     if(this.FullName.trim()!=="" &&this.Password.trim()!=="" && this.Phone.trim()!==""){
       this.validData=true; 
-
       firebase.database().ref("/customers").on('value',response=>{
         this.AllCustomers=this.DataToArray2(response);
         this.AllCustomers=this.AllCustomers.filter(customer=>customer.FullName==this.FullName && customer.Password==this.Password &&customer.Phone==this.Phone)
