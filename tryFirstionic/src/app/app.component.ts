@@ -17,12 +17,7 @@ export class MyApp {
 
 
     var config = {
-    apiKey: "AIzaSyC7vBerVmOkgU07rPTyBLfe3k9WKg9eQEg",
-    authDomain: "herafy-87392.firebaseapp.com",
-    databaseURL: "https://herafy-87392.firebaseio.com",
-    projectId: "herafy-87392",
-    storageBucket: "herafy-87392.appspot.com",
-    messagingSenderId: "729922009979"
+   
   };
   firebase.initializeApp(config);
 
